@@ -1,4 +1,4 @@
-package com.appian.eventsourcespike.servlets;
+package com.imennez.eventsourcespike.servlets;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

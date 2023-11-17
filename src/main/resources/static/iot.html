@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>IoT Event Source Spike</h1>
+<button onclick="start()">Start</button>
+<button onclick="stop()">Stop</button>
+<div id="result"></div>
+
+<script>
+    var s;
+    function start() {
+        if (s) {
+            console.log("EventSource already initialize.");
+        } else {
+            if (typeof(EventSource) !== "undefined") {
+                append("Starting...");
+                console.log("Initializing EventSource ...");
+                s = new EventSource("/iot-broker");
+                console.log("Init EventSource: " + s);
+                s.onmessage = (e) => {
+                    console.log("Message received: " + e.data);
+                    append(e.data);
+                };
+            } else {
+                document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
+            }
+        }
+    }
+
+    function stop() {
+        if (s) {
+            console.log("Closing event source");
+            s.close();
+            s = null;
+            append("Stopped!");
+        }
+    }
+
+    function append(msg) {
+        document.getElementById("result").innerHTML += msg + "<br>";
+    }
+
+</script>
+
+</body>
+</html>
+
+
